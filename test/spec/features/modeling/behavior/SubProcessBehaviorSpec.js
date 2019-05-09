@@ -49,6 +49,33 @@ describe('features/modeling/behavior - subprocess', function() {
       }
     ));
 
+
+    it('when expanding a subprocess', inject(
+      function(elementRegistry, modeling) {
+
+        // given
+        var collapsedSubProcess = elementRegistry.get('SubProcess'),
+            collapsedXPosition = collapsedSubProcess.x,
+            expandedSubProcess;
+
+        // when
+        modeling.toggleCollapse(collapsedSubProcess);
+
+        expandedSubProcess = elementRegistry.get('SubProcess');
+
+        // y has not changed after toggle and width/height are the defaults
+        var expectedBounds = {
+          x: collapsedXPosition,
+          y: 210,
+          width: 350,
+          height: 200
+        };
+
+        // then
+        expect(expandedSubProcess).to.have.bounds(expectedBounds);
+      }
+    ));
+
   });
 
 });
